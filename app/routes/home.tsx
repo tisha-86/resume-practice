@@ -13,16 +13,27 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function Home() {
-  const { auth, isLoading } = usePuterStore();
+  const { auth, isLoading, kv } = usePuterStore();
   const navigate = useNavigate();
   const [resumes, setResumes] = useState<Resume[]>([]);
   const [loadingResumes, setLoadingResumes] = useState(false);
 
   useEffect(() => {
-    if (!auth.isAuthenticated) {
-      navigate("/auth?next=/");
+    const loadResumes = async () => {
+      setLoadingResumes(true);
+
+      const resumes = (await kv.list('resume:*', true)) as KVItem[];
+
+      const parsedResumes = resumes?.map((resume) => (
+          JSON.parse(resume.value) as Resume
+      ));
+
+      setResumes(parsedResumes || []);
+      setLoadingResumes(false);
     }
-  }, [auth.isAuthenticated]);
+
+    loadResumes();
+  }, []);
 
   return (
       <main className="bg-[url('/images/bg-main.svg')] bg-cover">
