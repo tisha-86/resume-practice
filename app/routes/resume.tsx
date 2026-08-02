@@ -4,6 +4,7 @@ import { usePuterStore } from "~/lib/puter";
 import Summary from "~/components/feedback/Summary";
 import ATS from "~/components/feedback/ATS";
 import Details from "~/components/feedback/Details";
+import JobMatch from "~/components/feedback/JobMatch";
 
 export const meta = () => [
     { title: "Resumind | Review" },
@@ -79,6 +80,14 @@ const Resume = () => {
                         <div className="flex flex-col gap-8 animate-in fade-in duration-1000">
                             <Summary feedback={feedback} />
                             <ATS score={feedback.ATS.score || 0} suggestions={feedback.ATS.tips || []} />
+                            {feedback.jobMatch && (
+                                <JobMatch
+                                    matchScore={feedback.jobMatch.matchScore || 0}
+                                    matchedKeywords={feedback.jobMatch.matchedKeywords || []}
+                                    missingKeywords={feedback.jobMatch.missingKeywords || []}
+                                    summary={feedback.jobMatch.summary || ""}
+                                />
+                            )}
                             <Details feedback={feedback} />
                         </div>
                     ) : (

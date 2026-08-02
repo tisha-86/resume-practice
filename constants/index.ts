@@ -104,33 +104,39 @@ export const AIResponseFormat = `
         score: number; //max 100
         tips: {
           type: "good" | "improve";
-          tip: string; //make it a short "title" for the actual explanation
-          explanation: string; //explain in detail here
-        }[]; //give 3-4 tips
+          tip: string;
+          explanation: string;
+        }[];
       };
       content: {
         score: number; //max 100
         tips: {
           type: "good" | "improve";
-          tip: string; //make it a short "title" for the actual explanation
-          explanation: string; //explain in detail here
-        }[]; //give 3-4 tips
+          tip: string;
+          explanation: string;
+        }[];
       };
       structure: {
         score: number; //max 100
         tips: {
           type: "good" | "improve";
-          tip: string; //make it a short "title" for the actual explanation
-          explanation: string; //explain in detail here
-        }[]; //give 3-4 tips
+          tip: string;
+          explanation: string;
+        }[];
       };
       skills: {
         score: number; //max 100
         tips: {
           type: "good" | "improve";
-          tip: string; //make it a short "title" for the actual explanation
-          explanation: string; //explain in detail here
-        }[]; //give 3-4 tips
+          tip: string;
+          explanation: string;
+        }[];
+      };
+      jobMatch: {
+        matchScore: number; //max 100, how well resume matches the job description
+        matchedKeywords: string[]; //keywords/skills from job description found in resume
+        missingKeywords: string[]; //important keywords/skills from job description NOT found in resume
+        summary: string; //2-3 sentence explanation of the match quality
       };
     }`;
 export const prepareInstructions = ({
@@ -149,6 +155,11 @@ export const prepareInstructions = ({
   If there is a lot to improve, don't hesitate to give low scores. This is to help the user to improve their resume.
   If available, use the job description for the job user is applying to to give more detailed feedback.
   If provided, take the job description into consideration.
+  Additionally, carefully compare the resume against the job description to calculate a job match score:
+  extract the key skills, tools, and requirements mentioned in the job description, check which ones
+  appear in the resume (matchedKeywords) and which important ones are missing (missingKeywords).
+  If no job description is provided, set jobMatch.matchScore to 0 and leave the keyword arrays empty,
+  with a summary explaining no job description was given.
   The job title is: ${jobTitle}
   The job description is: ${jobDescription}
   Provide the feedback using the following format: ${AIResponseFormat}

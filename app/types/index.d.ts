@@ -1,17 +1,3 @@
-interface Job {
-    title: string;
-    description: string;
-    location: string;
-    requiredSkills: string[];
-}
-interface Resume {
-    id: string;
-    companyName?: string;
-    jobTitle?: string;
-    imagePath: string;
-    resumePath: string;
-    feedback: Feedback;
-}
 interface Feedback {
     overallScore: number;
     ATS: {
@@ -52,5 +38,11 @@ interface Feedback {
             tip: string;
             explanation: string;
         }[];
+    };
+    jobMatch: {
+        matchScore: number;
+        matchedKeywords: string[];
+        missingKeywords: string[];
+        summary: string;
     };
 }
