@@ -73,9 +73,19 @@ const Resume = () => {
                         </div>
                     )}
                 </section>
-
                 <section className="feedback-section">
-                    <h2 className="text-4xl !text-black font-bold">Resume Review</h2>
+                    <div className="flex flex-row justify-between items-center w-full">
+                        <h2 className="text-4xl !text-black font-bold">Resume Review</h2>
+                        {resumeUrl && (
+
+                            <a  href={resumeUrl}
+                            download="resume.pdf"
+                            className="bg-purple-600 hover:bg-purple-700 text-white px-5 py-2 rounded-full text-sm font-semibold transition-colors"
+                            >
+                            Download Resume
+                            </a>
+                            )}
+                    </div>
                     {feedback ? (
                         <div className="flex flex-col gap-8 animate-in fade-in duration-1000">
                             <Summary feedback={feedback} />

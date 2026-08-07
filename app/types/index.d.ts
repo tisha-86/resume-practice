@@ -46,3 +46,30 @@ interface Feedback {
         summary: string;
     };
 }
+interface ImprovedResume {
+    name: string;
+    contact: {
+        location: string;
+        phone: string;
+        email: string;
+        linkedin?: string;
+        github?: string;
+    };
+    summary: string;
+    education: {
+        institution: string;
+        degree: string;
+        duration: string;
+    }[];
+    experience: {
+        title: string;
+        organization: string;
+        duration: string;
+        bullets: string[];
+    }[];
+    projects: {
+        title: string;
+        bullets: string[];
+    }[];
+    skills: string[];
+}

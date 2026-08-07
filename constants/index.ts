@@ -165,3 +165,70 @@ export const prepareInstructions = ({
   Provide the feedback using the following format: ${AIResponseFormat}
   Return the analysis as a JSON object, without any other text and without the backticks.
   Do not include any other text or comments.`;
+export const ImprovedResumeFormat = `
+      interface ImprovedResume {
+      name: string;
+      contact: {
+        location: string;
+        phone: string;
+        email: string;
+        linkedin?: string;
+        github?: string;
+      };
+      summary: string; //rewritten, stronger 2-3 sentence professional summary
+      education: {
+        institution: string;
+        degree: string;
+        duration: string;
+      }[];
+      experience: {
+        title: string;
+        organization: string;
+        duration: string;
+        bullets: string[]; //rewritten, action-verb-led, quantified where possible
+      }[];
+      projects: {
+        title: string;
+        bullets: string[];
+      }[];
+      skills: string[]; //grouped/cleaned list of technical skills
+    }`;
+
+export const prepareImprovedResumeInstructions = ({
+                                                      resumeText,
+                                                      jobTitle,
+                                                      jobDescription,
+                                                      feedback,
+                                                      ImprovedResumeFormat,
+                                                  }: {
+    resumeText: string;
+    jobTitle: string;
+    jobDescription: string;
+    feedback: string;
+    ImprovedResumeFormat: string;
+}) =>
+    `You are an expert resume writer. Rewrite and improve the following resume
+  to be more ATS-friendly, concise, and impactful, while keeping all information
+  truthful and based only on what is provided. Do not invent companies, degrees,
+  or experience that isn't in the original resume.
+
+  Use the feedback below to guide your improvements (fix weak wording, add missing
+  structure, improve clarity). Tailor the summary and bullet points toward this job
+  when possible, without fabricating experience.
+
+  Original resume text:
+  """
+  ${resumeText}
+  """
+
+  Job title: ${jobTitle}
+  Job description: ${jobDescription}
+
+  Previous feedback on this resume:
+  """
+  ${feedback}
+  """
+
+  Return the improved resume using the following format: ${ImprovedResumeFormat}
+  Return the result as a JSON object, without any other text and without backticks.
+  Do not include any other text or comments.`;

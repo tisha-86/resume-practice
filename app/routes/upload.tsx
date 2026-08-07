@@ -5,7 +5,12 @@ import { usePuterStore } from "~/lib/puter";
 import { useNavigate } from "react-router";
 import { convertPdfToImage } from "~/lib/pdf2img";
 import { generateUUID } from "~/lib/utils";
-import { prepareInstructions, AIResponseFormat } from "../../constants";
+import {
+    prepareInstructions,
+    AIResponseFormat,
+    prepareImprovedResumeInstructions,
+    ImprovedResumeFormat,
+} from "../../constants";
 
 const Upload = () => {
     const { auth, isLoading, fs, ai, kv } = usePuterStore();
@@ -42,6 +47,7 @@ const Upload = () => {
             companyName,
             jobTitle, jobDescription,
             feedback: '',
+            improvedResume: null as ImprovedResume | null,
         }
         await kv.set(`resume:${uuid}`, JSON.stringify(data));
 
@@ -60,6 +66,34 @@ const Upload = () => {
                 ? content.find((c: any) => c.type === 'text')?.text
                 : '';
         data.feedback = JSON.parse(feedbackText);
+        await kv.set(`resume:${uuid}`, JSON.stringify(data));
+
+        setStatusText('Generating improved resume...');
+
+        const improved = await ai.feedback(
+            uploadedFile.path,
+            prepareImprovedResumeInstructions({
+                jobTitle,
+                jobDescription,
+                feedback: feedbackText,
+                ImprovedResumeFormat,
+            })
+        );
+
+        if (improved) {
+            const improvedContent = improved.message.content;
+            const improvedText = typeof improvedContent === 'string'
+                ? improvedContent
+                : Array.isArray(improvedContent)
+                    ? improvedContent.find((c: any) => c.type === 'text')?.text
+                    : '';
+            try {
+                data.improvedResume = JSON.parse(improvedText);
+            } catch (e) {
+                console.error('Failed to parse improved resume:', e);
+            }
+        }
+
         await kv.set(`resume:${uuid}`, JSON.stringify(data));
         setStatusText('Analysis complete, redirecting...');
         console.log(data);
