@@ -295,9 +295,7 @@ export const usePuterStore = create<PuterStore>((set, get) => {
             setError("Puter.js not available");
             return;
         }
-        return puter.ai.chat(prompt, imageURL, testMode, options) as Promise <
-        AIResponse | undefined
-        >;
+        return puter.ai.chat(prompt, imageURL, testMode, options) as Promise<AIResponse | undefined>;
     };
     const feedback = async (path: string, message: string) => {
         const puter = getPuter();
@@ -321,7 +319,7 @@ export const usePuterStore = create<PuterStore>((set, get) => {
                     ],
                 },
             ],
-            { model: "claude-sonnet-5", max_tokens: 4000 }
+            { model: "claude-sonnet-5", max_tokens: 8000 }
         ) as Promise<AIResponse | undefined>;
     };
     const img2txt = async (image: string | File | Blob, testMode?: boolean) => {

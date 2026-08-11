@@ -5,6 +5,8 @@ import Summary from "~/components/feedback/Summary";
 import ATS from "~/components/feedback/ATS";
 import Details from "~/components/feedback/Details";
 import JobMatch from "~/components/feedback/JobMatch";
+import ResumePDF from "~/components/ResumePDF";
+import { PDFDownloadLink } from "@react-pdf/renderer";
 
 export const meta = () => [
     { title: "Resumind | Review" },
@@ -17,6 +19,7 @@ const Resume = () => {
     const [imageUrl, setImageUrl] = useState('');
     const [resumeUrl, setResumeUrl] = useState('');
     const [feedback, setFeedback] = useState<Feedback | null>(null);
+    const [improvedResume, setImprovedResume] = useState<ImprovedResume | null>(null);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -44,7 +47,8 @@ const Resume = () => {
             setImageUrl(imageUrl);
 
             setFeedback(data.feedback);
-            console.log({ resumeUrl, imageUrl, feedback: data.feedback });
+            setImprovedResume(data.improvedResume || null);
+            console.log({ resumeUrl, imageUrl, feedback: data.feedback, improvedResume: data.improvedResume });
         };
 
         loadResume();
@@ -74,17 +78,30 @@ const Resume = () => {
                     )}
                 </section>
                 <section className="feedback-section">
-                    <div className="flex flex-row justify-between items-center w-full">
+                    <div className="flex flex-row justify-between items-center w-full flex-wrap gap-3">
                         <h2 className="text-4xl !text-black font-bold">Resume Review</h2>
-                        {resumeUrl && (
+                        <div className="flex flex-row gap-3">
+                            {resumeUrl && (
 
-                            <a  href={resumeUrl}
-                            download="resume.pdf"
-                            className="bg-purple-600 hover:bg-purple-700 text-white px-5 py-2 rounded-full text-sm font-semibold transition-colors"
-                            >
-                            Download Resume
-                            </a>
+                              <a  href={resumeUrl}
+                                download="resume.pdf"
+                                className="bg-gray-600 hover:bg-gray-700 text-white px-5 py-2 rounded-full text-sm font-semibold transition-colors"
+                                >
+                                Download Original
+                                </a>
+                                )}
+                            {improvedResume && (
+                                <PDFDownloadLink
+                                    document={<ResumePDF resume={improvedResume} />}
+                                    fileName="improved-resume.pdf"
+                                    className="bg-purple-600 hover:bg-purple-700 text-white px-5 py-2 rounded-full text-sm font-semibold transition-colors"
+                                >
+                                    {({ loading }) =>
+                                        loading ? "Preparing PDF..." : "Download Improved Resume"
+                                    }
+                                </PDFDownloadLink>
                             )}
+                        </div>
                     </div>
                     {feedback ? (
                         <div className="flex flex-col gap-8 animate-in fade-in duration-1000">

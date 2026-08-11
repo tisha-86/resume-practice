@@ -41,6 +41,10 @@ export default function Home() {
 
         <section className="main-section">
           <div className="page-heading py-16">
+            <div className="hero-eyebrow">
+              <span className="hero-eyebrow-dot" />
+              AI-Powered Resume Analysis
+            </div>
             <h1>Track Your Applications & Resume Ratings</h1>
             {!loadingResumes && resumes?.length === 0 ? (
                 <h2>No resumes found. Upload your first resume to get feedback.</h2>

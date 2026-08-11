@@ -1,3 +1,19 @@
+interface Job {
+    title: string;
+    description: string;
+    location: string;
+    requiredSkills: string[];
+}
+
+interface Resume {
+    id: string;
+    companyName?: string;
+    jobTitle?: string;
+    imagePath: string;
+    resumePath: string;
+    feedback: Feedback;
+}
+
 interface Feedback {
     overallScore: number;
     ATS: {
@@ -46,6 +62,7 @@ interface Feedback {
         summary: string;
     };
 }
+
 interface ImprovedResume {
     name: string;
     contact: {
@@ -72,4 +89,13 @@ interface ImprovedResume {
         bullets: string[];
     }[];
     skills: string[];
+}
+
+interface UserProfile {
+    name: string;
+    phone: string;
+    email: string;
+    location: string;
+    linkedin: string;
+    github: string;
 }

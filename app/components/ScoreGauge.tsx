@@ -20,8 +20,8 @@ const ScoreGauge = ({ score = 75 }: { score: number }) => {
                             x2="100%"
                             y2="0%"
                         >
-                            <stop offset="0%" stopColor="#a78bfa" />
-                            <stop offset="100%" stopColor="#fca5a5" />
+                            <stop offset="0%" stopColor="#5EEAD4" />
+                            <stop offset="100%" stopColor="#0F766E" />
                         </linearGradient>
                     </defs>
                     {/* Background arc */}

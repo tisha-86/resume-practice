@@ -26,8 +26,8 @@ const ScoreCircle = ({ score = 75 }: { score: number }) => {
                 {/* Gradient progress circle */}
                 <defs>
                     <linearGradient id="grad" x1="1" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stopColor="#606beb" />
-                        <stop offset="100%" stopColor="#8e98ff" />
+                        <stop offset="0%" stopColor="#0F766E" />
+                        <stop offset="100%" stopColor="#5EEAD4" />
                     </linearGradient>
                 </defs>
                 <circle

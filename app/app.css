@@ -6,7 +6,10 @@
   --font-sans: "Mona Sans", ui-sans-serif, system-ui, sans-serif,
   "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 
-  --color-dark-200: #475467;
+  --color-dark-200: #1F2937;
+  --color-warm-bg: #FAFAF8;
+  --color-emerald-light: #CCFBF1;
+  --color-emerald-dark: #0F766E;
   --color-light-blue-100: #c1d3f81a;
   --color-light-blue-200: #a7bff14d;
   --color-badge-green: #d5faf1;
@@ -52,7 +55,7 @@ form {
 
 @layer components {
   .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-[#AB8C95] via-[#000000] to-[#8E97C5];
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-[#0F766E] via-[#134E4A] to-[#065F46];
   }
 
   .gradient-border {
@@ -61,6 +64,39 @@ form {
 
   .primary-button {
     @apply primary-gradient text-white rounded-full px-4 py-2 cursor-pointer w-full;
+  }
+
+  .navbar {
+    @apply flex flex-row justify-between items-center bg-white rounded-full p-4 w-full px-10 max-w-[1200px] mx-auto shadow-sm border border-gray-100;
+  }
+
+  .navbar-logo {
+    @apply flex flex-row items-center gap-2;
+  }
+
+  .navbar-logo-mark {
+    @apply flex items-center justify-center w-9 h-9 rounded-xl primary-gradient text-white text-lg font-bold;
+  }
+
+  .nav-link {
+    @apply text-sm text-dark-200 font-medium hover:text-black transition-colors duration-200 relative;
+  }
+
+  .nav-link::after {
+    content: "";
+    @apply absolute left-0 -bottom-1 w-0 h-[2px] bg-black transition-all duration-200;
+  }
+
+  .nav-link:hover::after {
+    @apply w-full;
+  }
+
+  .hero-eyebrow {
+    @apply flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-light border border-emerald-dark/20 text-sm font-medium text-dark-200;
+  }
+
+  .hero-eyebrow-dot {
+    @apply w-2 h-2 rounded-full primary-gradient;
   }
 
   .resume-nav {
@@ -107,10 +143,6 @@ form {
     @apply flex flex-col gap-8 w-1/2 px-8 max-lg:w-full py-6;
   }
 
-  .navbar {
-    @apply flex flex-row justify-between items-center bg-white rounded-full p-4 w-full px-10 max-w-[1200px] mx-auto;
-  }
-
   .score-badge {
     @apply flex flex-row items-center justify-center py-1 px-2 gap-4 rounded-[96px];
   }
@@ -129,11 +161,11 @@ form {
 }
 
 @utility bg-gradient {
-  background: linear-gradient(to bottom, #f0f4ff 60%, #fa7185cc);
+  background: linear-gradient(to bottom, #ECFDF5 60%, #99F6E4cc);
 }
 
 @utility text-gradient {
-  @apply bg-clip-text text-transparent bg-gradient-to-r from-[#AB8C95] via-[#000000] to-[#8E97C5];
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-[#0F766E] via-[#134E4A] to-[#065F46];
 }
 
 @utility gradient-hover {
@@ -141,16 +173,16 @@ form {
 }
 
 @utility primary-gradient {
-  background: linear-gradient(to bottom, #8e98ff, #606beb);
+  background: linear-gradient(to bottom, #14B8A6, #0F766E);
   box-shadow: 0px 74px 21px 0px #6678ef00;
 }
 
 @utility primary-gradient-hover {
-  background: linear-gradient(to bottom, #717dff, #4957eb);
+  background: linear-gradient(to bottom, #0D9488, #0F766E);
 }
 
 @utility inset-shadow {
-  box-shadow: inset 0 0 12px 0 rgba(36, 99, 235, 0.2);
+  box-shadow: inset 0 0 12px 0 rgba(15, 118, 110, 0.15);
   backdrop-filter: blur(10px);
 }
 
